@@ -1,0 +1,35 @@
+/'
+**Спортивные матчи**:
+- В системе хранится информация о матчах между командами.
+- Каждый матч проходит между двумя командами под руководством одного арбитра.
+- Команда не играет сама с собой и может участвовать в не ограниченном числе матчей.
+- Арбитр может судить разные матчи.
+'/
+@startuml
+!function $setBold($a)
+!return "<b>" + $a + " </b>"
+!endfunction
+
+skinparam BackgroundColor SeaShell
+skinparam Class {
+    HeaderBackgroundColor PaleGreen
+}
+skinparam TitleFontColor Sienna
+
+entity "$setBold("Матч")" as Match {
+}
+
+entity "$setBold("Команда")" as Team {
+}
+
+entity "$setBold("Арбитр")" as Referee {
+}
+
+' Матч проходит между двумя командами (многие ко многим)
+Match }o--o{ Team : "участвует"
+note on link: "участвует ровно 2 команды"
+
+' Один арбитр обслуживает матч (один ко многим)
+Referee ||--o{ Match : "судит"
+
+@enduml

@@ -1,0 +1,23 @@
+/'
+**Родственные связи**:
+- У каждого человека есть два биологических родителя: отец (мужчина) и мать (женщина).
+'/
+@startuml
+!function $setBold($a)
+!return "<b>" + $a + " </b>"
+!endfunction
+
+skinparam BackgroundColor SeaShell
+skinparam Class {
+    HeaderBackgroundColor PaleGreen
+}
+skinparam TitleFontColor Sienna
+
+entity "$setBold("Человек")" as Person {
+}
+
+' Человек является либо мужчиной, либо женщиной
+Person ||--o{ Person : "отец"
+Person ||--o{ Person : "мать"
+
+@enduml

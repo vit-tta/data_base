@@ -1,0 +1,45 @@
+/'
+**Адреса**:
+- Квартира находится в доме.
+- Дом расположен на улице.
+- Улица находится в городе.
+- Город находится в стране.
+'/
+@startuml
+!function $setBold($a)
+!return "<b>" + $a + " </b>"
+!endfunction
+
+skinparam BackgroundColor SeaShell
+skinparam Class {
+    HeaderBackgroundColor PaleGreen
+}
+skinparam TitleFontColor Sienna
+
+entity "$setBold("Квартира")" as Apartment {
+}
+
+entity "$setBold("Дом")" as Building {
+}
+
+entity "$setBold("Улица")" as Street {
+}
+
+entity "$setBold("Город")" as City {
+}
+
+entity "$setBold("Страна")" as Country {
+}
+
+' Дом содержит квартиру (один ко многим)
+Building ||--o{ Apartment : "содержит"
+
+' На улице расположен дом (один ко многим)
+Street ||--o{ Building : "включает"
+
+' В городе есть улица (один ко многим)
+City ||--o{ Street : "имеет"
+
+' Страна содержит город (один ко многим)
+Country ||--o{ City : "содержит"
+@enduml

@@ -1,0 +1,88 @@
+@startuml ERD_Example
+
+!function $pk($a)
+!return "<color:RoyalBlue>" + $a + " <<PK>></color>"
+!endfunction
+
+!function $unique($a)
+!return "<color:Crimson>" + $a + " <<unique>></color>"
+!endfunction
+
+!function $setBold($a)
+!return "<b>" + $a + " </b>"
+!endfunction
+
+skinparam BackgroundColor SeaShell
+skinparam LegendBackgroundColor MistyRose
+skinparam LegendBorderColor PaleVioletRed
+skinparam LegendFontColor PaleVioletRed
+
+skinparam Class {
+    HeaderBackgroundColor PaleGreen
+}
+skinparam TitleFontColor Sienna
+
+Header Пример ER‑диаграммы
+Title ER‑диаграмма "Пример базы данных"
+
+' ------------------------- Сущности -------------------------
+entity "$setBold("Пользователь")" as User {
+    * $pk("Идентификатор")
+    * Логин
+    * Пароль
+    Имя
+    Фамилия
+    Дата_рождения
+}
+
+entity "$setBold("Заказ")" as Order {
+    * $pk("Номер_заказа")
+    * Описание
+    Дата_создания
+    Статус
+}
+
+entity "$setBold("Продукт")" as Product {
+    * $pk("Код_продукта")
+    * Название
+    Цена
+    Количество
+}
+
+entity "$setBold("Платеж")" as Payment {
+    * $pk("Номер_платежа")
+    Дата_платежа
+    Сумма
+}
+
+entity "$setBold("Склад")" as Warehouse {
+    * $pk("Код_склада")
+    Адрес
+    Вместимость
+}
+
+' ------------------------- Связи -------------------------
+' Один к одному:
+User ||--|| Payment : "Платежный профиль"
+
+' Один ко многим:
+User ||--o{ Order : "Создаёт"
+' Обратная сторона (много к одному):
+Order }o--|| User : "Принадлежит"
+
+' Многие ко многим:
+Order }o--o{ Product : "Содержит"
+
+' Дополнительный пример one-to-many:
+Warehouse ||--o{ Product : "Размещает"
+
+' ------------------------- Легенда -------------------------
+legend right
+$setBold("Условные обозначения:")
+|| или o|  - один к одному (опционально - обязательно)
+|o или |{  - один ко многим (опционально - обязательно)
+}o или |{  - многие ко многим (опционально - обязательно)
+}o--o{   - многие ко многим (опциально)
+end legend
+
+@enduml
