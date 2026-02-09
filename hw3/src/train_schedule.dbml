@@ -1,0 +1,31 @@
+Table city {
+  name varchar
+  region varchar
+  Indexes {
+    (name, region) [pk]
+  }
+}
+
+Table station {
+  name varchar [pk]
+  tracks integer
+  city_name varchar [not null, ref: > city.name]
+}
+
+Table train {
+  train_nr integer [pk]
+  length integer
+  start_station varchar [not null, ref: > station.name]
+  end_station varchar [not null, ref: >  station.name]
+}
+
+Table connected {
+  train_nr integer [ref: >  train.train_nr]
+  station_name varchar [ref: >  station.name]
+  arrival_time time
+  departure_time time
+
+  Indexes {
+    (train_nr, station_name) [pk]
+  }
+}
